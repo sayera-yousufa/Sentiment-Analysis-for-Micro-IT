@@ -1,74 +1,83 @@
 # Sentiment-Analysis-for-Micro-IT
 
-# Twitter Sentiment Analysis Using NLP and TF-IDF Vectorization
+# Twitter Sentiment Analysis using TF-IDF VECTORIZATION AND LOGISTIC REGRESSION.
 
-## Project Overview
-This project performs sentiment analysis on a dataset of tweets using Natural Language Processing (NLP) techniques and TF-IDF vectorization. The objective is to classify tweets as positive or negative based on their text content. The dataset used is the Sentiment140 dataset, containing 1.6 million tweets with labeled sentiments.
-
-- **Techniques Used**: NLP, TF-IDF Vectorization, Logistic Regression
-- **Libraries**: NLTK, scikit-learn, pandas, numpy
-- **Dataset**: [Sentiment140](https://www.kaggle.com/datasets/kazanova/sentiment140)
+## Overview
+This project performs sentiment analysis on a dataset of 1.6 million tweets from the [Sentiment140 dataset](https://www.kaggle.com/datasets/kazanova/sentiment140). The goal is to classify tweets as either **positive** or **negative** using Natural Language Processing (NLP) techniques and a Logistic Regression model. The project includes data preprocessing, model training, evaluation, visualizations, and a feature to predict the sentiment of a sample tweet.
 
 ## Dataset
-The Sentiment140 dataset includes 1,600,000 tweets collected via the Twitter API. Each tweet is labeled with a sentiment:
-- **0**: Negative
-- **4**: Positive
+- **Source**: Sentiment140 dataset from Kaggle (`kazanova/sentiment140`).
+- **Size**: 1,600,000 tweets.
+- **Labels**: 
+  - `0`: Negative sentiment
+  - `1`: Positive sentiment (originally labeled as `4` in the dataset, converted to `1` during preprocessing).
+- **Columns**: `target`, `id`, `date`, `query`, `user`, `text`.
 
-### Dataset Columns
-- `target`: Sentiment label (0 or 1)
-- `id`: Tweet ID
-- `date`: Date of the tweet
-- `query`: Query used to collect the tweet (mostly "NO_QUERY" in this dataset)
-- `user`: Username of the tweet author
-- `text`: The tweet text
+## Project Workflow
+1. **Setup**:
+   - Installed the `kaggle` package to download the dataset.
+   - Configured Kaggle API credentials (`kaggle.json`) for programmatic dataset access.
+   - Downloaded and extracted the dataset (`sentiment140.zip`).
 
-For this project, only the `sentiment` and `text` columns are used, as the `query` column provides no meaningful information (all values are "NO_QUERY").
+2. **Data Preprocessing**:
+   - Loaded the dataset into a Pandas DataFrame with custom column names.
+   - Used `ISO-8859-1` encoding to handle special characters in tweets.
+   - Converted the `target` labels from `4` to `1` for positive tweets.
+   - Applied text preprocessing:
+     - Removed non-alphabetic characters using regex.
+     - Converted text to lowercase.
+     - Tokenized the text and removed stopwords using NLTK.
+     - Applied stemming using `PorterStemmer` to reduce words to their root form.
+   - Created a new column `stemmed_content` with the processed text.
 
-## Prerequisites
-Before running the project, ensure you have the following:
-- Python 3.7 or higher
-- A Kaggle account to download the dataset
-- A `kaggle.json` API token (download from your Kaggle account settings)
+3. **Feature Extraction**:
+   - Used `TfidfVectorizer` to convert the stemmed text into numerical features (TF-IDF scores).
 
-## Project Structure
-`sentiment_analysis.py`: Main script containing the code for loading, preprocessing, and modeling.
-`sentiment140.zip`: The zipped dataset downloaded from Kaggle.
-`sentiment140_data/`: Directory where the dataset is extracted (contains training.1600000.processed.noemoticon.csv).
-`README.md`: This documentation file.
-`kaggle.json`: Kaggle API token (not included in the repository for security reasons).
+4. **Model Training**:
+   - Split the data into training (80%) and testing (20%) sets using `train_test_split` with stratification to maintain class balance.
+   - Trained a Logistic Regression model (`max_iter=1000`) on the training data.
 
-## Methodology
-### Data Loading
-Load the dataset into a pandas DataFrame using pd.read_csv().
-Drop unnecessary columns (id, date, query, user) to focus on sentiment and text.
+5. **Model Evaluation**:
+   - Achieved an accuracy of **79.87%** on the training data.
+   - Achieved an accuracy of **77.67%** on the testing data.
 
-### Preprocessing
-Convert tweet text to lowercase.
-Remove URLs, mentions, hashtags, and special characters using regular expressions.
-Remove stopwords using NLTK’s stopwords list.
-Apply stemming with the Porter Stemmer to reduce words to their root form.
+6. **Visualizations**:
+   - **Sentiment Distribution**: A count plot showing the distribution of positive and negative tweets (800,000 each).
+   - **Word Cloud**: A visualization of the most frequent words in the stemmed tweet content.
 
-### Feature Extraction
-Use TfidfVectorizer from scikit-learn to convert the preprocessed text into numerical features.
-Limit the features to the top 5,000 to manage computational complexity.
+7. **Sample Tweet Prediction**:
+   - Added functionality to predict the sentiment of a custom tweet using the trained model.
 
-### Modeling
-Split the data into training (80%) and testing (20%) sets using train_test_split.
-Train a Logistic Regression model on the TF-IDF features to predict sentiment.
-
-### Evaluation
-Evaluate the model using accuracy and a classification report (precision, recall, F1-score).
+## Visualizations
+- **Sentiment Distribution**: The dataset is balanced with 800,000 negative and 800,000 positive tweets. The plot is saved as `sentiment_distribution.png`.
+- **Word Cloud**: Highlights the most common words in the stemmed tweets, saved as `wordcloud.png`.
 
 ## Results
-- The Logistic Regression model achieves an accuracy of approximately [insert accuracy here after running the script] on the test set.
-- Detailed metrics are provided in the classification report printed by the script.
+- **Model Accuracy**:
+  - Training Accuracy: 79.87%
+  - Testing Accuracy: 77.67%
+- **Sample Tweet Example**:
+  - Tweet: "I love the new features of this app, it's amazing!"
+  - Predicted Sentiment: Positive
+ 
+## Output Screenshots
+
+
+
+## Files
+- `Twitter Sentiment Analysis (Updated).ipynb`: The main Jupyter Notebook containing the code.
+- `sentiment_distribution.png`: Visualization of the sentiment distribution.
+- `wordcloud.png`: Word cloud of the stemmed tweet content.
 
 ## Future Improvements
-- Experiment with advanced models like Naive Bayes, LSTM, or BERT.
-- Use word embeddings (e.g., Word2Vec, GloVe) instead of TF-IDF for better feature representation.
-- Address potential class imbalance in the dataset.
-- Perform hyperparameter tuning for the Logistic Regression model.
+- Experiment with other models like Naive Bayes, SVM, or deep learning models (e.g., LSTM).
+- Incorporate more advanced text preprocessing (e.g., lemmatization instead of stemming).
+- Add hyperparameter tuning for the Logistic Regression model using GridSearchCV.
+- Include additional evaluation metrics like precision, recall, and F1-score.
 
+## Acknowledgments
+- Dataset provided by [Sentiment140](https://www.kaggle.com/datasets/kazanova/sentiment140).
+- Built using Python, NLTK, scikit-learn, and visualization libraries (Matplotlib, Seaborn, WordCloud).
 
 
 
