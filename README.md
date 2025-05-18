@@ -1,4 +1,5 @@
-# Sentiment-Analysis-for-Micro-IT
+# Sentiment-Analysis-for-Micro-IT 
+# BY SAYERA YOUSUFA
 
 # Twitter Sentiment Analysis using TF-IDF VECTORIZATION AND LOGISTIC REGRESSION.
 
@@ -61,6 +62,18 @@ This project performs sentiment analysis on a dataset of 1.6 million tweets from
   - Predicted Sentiment: Positive
  
 ## Output Screenshots
+
+- Model Accuracy:
+
+<img width="578" alt="Image" src="https://github.com/user-attachments/assets/a97e070b-762a-4977-b350-df87fdf08414" />
+
+- Sentiment Distribution:
+
+![Image](https://github.com/user-attachments/assets/ca9be36d-17b2-447d-a873-bce2fc9cdc3c)
+
+- Word Cloud:
+  
+![Image](https://github.com/user-attachments/assets/95e61f43-96c5-49e1-ac8a-507c1ca82128)
 
 
 
