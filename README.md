@@ -1,6 +1,3 @@
-# Sentiment-Analysis-for-Micro-IT 
-# BY SAYERA YOUSUFA
-
 # Twitter Sentiment Analysis using TF-IDF VECTORIZATION AND LOGISTIC REGRESSION.
 
 ## Overview
